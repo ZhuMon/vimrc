@@ -31,11 +31,18 @@ inoremap <c-j> <Esc>I
 inoremap <c-k> <Esc>A
 inoremap <c-y> <Esc>yya
 inoremap <c-p> <Esc>pa
+inoremap <c-x> <Esc>xa
+
 let mapleader=";"
 inoremap <leader>; <Esc>d^xi
 inoremap <leader>;<space> ;
+"Make a word wrap by "
 inoremap <leader>" <esc>viw<esc>a"<esc>bi"<esc>lela
 inoremap <leader>' <esc>viw<esc>a'<esc>bi'<esc>lela
+
+"indent 
+inoremap <leader>> <Esc>>>a
+inoremap <leader>< <Esc><<a
 
 nnoremap <leader>" i<esc>viw<esc>a"<esc>bi"<esc>lel
 
