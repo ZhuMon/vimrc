@@ -65,3 +65,24 @@ endif
 "onoremap il( :<c-u>normal! F)vi(<cr>
 
 "Plug 'rightson/vim-p4-syntax'
+
+autocmd BufNewFile *.dots call ManyBlank()
+
+function ManyBlank()
+    let i = 0
+    while i <= 10
+        :normal i                                    
+        :normal o
+        let i += 1
+    endwhile
+    :normal gg
+    let i = 0
+    while i <= 35
+        :normal h
+        let i += 1
+    endwhile
+
+    :normal R
+    return "hi" 
+endfunction
+
