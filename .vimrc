@@ -16,9 +16,9 @@ set cursorline
 hi LineNr cterm=bold ctermfg=DarkGrey ctermbg=NONE 
 hi CursorLineNr cterm=bold ctermfg=Green ctermbg=NONE
 
-inoremap ( ()<LEFT>
-inoremap () ()
-inoremap (( (
+"inoremap ( ()<LEFT>
+"inoremap () ()
+"inoremap (( (
 inoremap {<CR> {<CR>}<Esc>kA<CR>
 
 inoremap <c-o> <Esc>o
@@ -70,14 +70,14 @@ autocmd BufNewFile *.dots call ManyBlank()
 
 function ManyBlank()
     let i = 0
-    while i <= 10
-        :normal i                                    
+    while i <= 50
+        :normal i                                         
         :normal o
         let i += 1
     endwhile
     :normal gg
     let i = 0
-    while i <= 35
+    while i <= 40
         :normal h
         let i += 1
     endwhile
