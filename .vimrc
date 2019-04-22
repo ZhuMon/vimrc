@@ -6,6 +6,7 @@ set softtabstop=4
 "set noexpandtab
 set expandtab
 
+set t_Co=256
 set ruler
 set mouse=a
 
@@ -35,7 +36,7 @@ inoremap <c-x> <Esc>lxi
 
 let mapleader=";"
 inoremap <leader>; <Esc>d^xi
-inoremap <leader>;<space> ;
+inoremap <leader><space> ;
 "Make a word wrap by "
 inoremap <leader>" <esc>viw<esc>a"<esc>bi"<esc>lela
 inoremap <leader>' <esc>viw<esc>a'<esc>bi'<esc>lela
@@ -86,3 +87,4 @@ function ManyBlank()
     return "hi" 
 endfunction
 
+autocmd FileType make setlocal noexpandtab
