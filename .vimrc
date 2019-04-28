@@ -33,6 +33,7 @@ inoremap <c-k> <Esc>A
 inoremap <c-y> <Esc>yya
 inoremap <c-p> <Esc>pa
 inoremap <c-x> <Esc>lxi
+inoremap <c-r> <Esc>lR
 
 let mapleader=";"
 inoremap <leader>; <Esc>d^xi
