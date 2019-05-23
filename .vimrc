@@ -17,6 +17,17 @@ set cursorline
 hi LineNr cterm=bold ctermfg=DarkGrey ctermbg=NONE 
 hi CursorLineNr cterm=bold ctermfg=Green ctermbg=NONE
 
+set nocompatible
+filetype off                    " required!
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+Bundle 'gmarik/vundle'
+Bundle 'scrooloose/nerdcommenter'
+filetype plugin indent on
+"filetype plugin on
+
+
+
 "inoremap ( ()<LEFT>
 "inoremap () ()
 "inoremap (( (
@@ -33,7 +44,6 @@ inoremap <c-k> <Esc>A
 inoremap <c-y> <Esc>yya
 inoremap <c-p> <Esc>pa
 inoremap <c-x> <Esc>lxi
-inoremap <c-r> <Esc>lR
 
 let mapleader=";"
 inoremap <leader>; <Esc>d^xi
@@ -66,8 +76,6 @@ endif
 "onoremap in( :<c-u>normal! f(vi(<cr>
 "onoremap il( :<c-u>normal! F)vi(<cr>
 
-"Plug 'rightson/vim-p4-syntax'
-
 autocmd BufNewFile *.dots call ManyBlank()
 
 function ManyBlank()
@@ -89,3 +97,5 @@ function ManyBlank()
 endfunction
 
 autocmd FileType make setlocal noexpandtab
+au FileType perl set filetype=prolog
+au BufNewFile,BufRead *.dots set filetype=asciidots
