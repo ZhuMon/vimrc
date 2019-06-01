@@ -12,17 +12,17 @@ sudo apt-get install fonts-powerline
 # cd fonts
 # ./install.sh
 
-echo "set font to Meslo LG L DZ for powerline"
 
 git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
 
-echo "write in .zshrc \"ZSH_THEME=\"powerlevel9k/powerlevel9k\"\""
 
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
 git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
 
-echo "write in .zshrc plugins: zsh-syntax-highlighting zsh-autosuggestions"
 source ~/.zshrc
 
-reboot
+echo "set font to Meslo LG L DZ for powerline"
+echo "write in .zshrc \"ZSH_THEME=\"powerlevel9k/powerlevel9k\"\""
+echo "write in .zshrc plugins: zsh-syntax-highlighting zsh-autosuggestions"
+#reboot
