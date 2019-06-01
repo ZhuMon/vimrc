@@ -21,6 +21,10 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/
 
 git clone git://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/plugins/zsh-autosuggestions
 
+echo "POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(virtualenv ssh context dir dir_writable vcs)" > ~/.zshrc
+echo "POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status ram time) " > ~/.zshrc
+echo "DEFAULT_USER=\"$USER\"" > ~/.zshrc
+
 source ~/.zshrc
 
 echo "set font to Ubunto Mono Regular"
