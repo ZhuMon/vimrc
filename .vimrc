@@ -19,10 +19,11 @@ hi CursorLineNr cterm=bold ctermfg=Green ctermbg=NONE
 
 set nocompatible
 filetype off                    " required!
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'gmarik/vundle'
+set rtp+=~/.vim/bundle/Vundle.vim/
+call vundle#begin()
+Bundle 'VundleVim/Vundle.vim'
 Bundle 'scrooloose/nerdcommenter'
+call vundle#end()
 filetype plugin indent on
 "filetype plugin on
 
