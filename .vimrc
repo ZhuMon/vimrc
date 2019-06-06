@@ -52,6 +52,9 @@ inoremap <leader><space> ;
 "Make a word wrap by "
 inoremap <leader>" <esc>viw<esc>a"<esc>bi"<esc>lela
 inoremap <leader>' <esc>viw<esc>a'<esc>bi'<esc>lela
+inoremap <leader>[] <esc>viw<esc>a]<esc>bi[<esc>lela
+inoremap <leader>() <esc>viw<esc>a)<esc>bi(<esc>lela
+inoremap <leader>{} <esc>viw<esc>a}<esc>bi{<esc>lela
 
 "indent 
 inoremap <leader>> <Esc>>>a
