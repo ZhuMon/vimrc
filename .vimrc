@@ -23,11 +23,19 @@ set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#begin()
 Bundle 'VundleVim/Vundle.vim'
 Bundle 'scrooloose/nerdcommenter'
+Plugin 'tmhedberg/SimpylFold'
+Plugin 'Valloric/YouCompleteMe'
 call vundle#end()
 filetype plugin indent on
 "filetype plugin on
+let g:SimpylFold_docstring_preview = 0
 
+set foldmethod=indent
+au BufWinLeave * silent mkview  " 保存文件的折叠状态
+au BufRead * silent loadview    " 恢复文件的折叠状态
+nnoremap <space> za             " 用空格来切换折叠状态
 
+set backspace=indent,eol,start
 
 "inoremap ( ()<LEFT>
 "inoremap () ()
@@ -67,7 +75,12 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 
 nnoremap <c-=> 0ggVG=
 
+nnoremap <c-o> o
 "iabbrev adn and
+
+"nnoremap gl :YcmCompleter GoToDeclaration
+"nnoremap gf :YcmCompleter GoToDefinition
+"nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration
 
 filetype indent on
 
@@ -80,25 +93,25 @@ endif
 "onoremap in( :<c-u>normal! f(vi(<cr>
 "onoremap il( :<c-u>normal! F)vi(<cr>
 
-autocmd BufNewFile *.dots call ManyBlank()
+"autocmd BufNewFile *.dots call ManyBlank()
 
-function ManyBlank()
-    let i = 0
-    while i <= 50
-        :normal i                                         
-        :normal o
-        let i += 1
-    endwhile
-    :normal gg
-    let i = 0
-    while i <= 40
-        :normal h
-        let i += 1
-    endwhile
+"function ManyBlank()
+    "let i = 0
+    "while i <= 50
+        ":normal i                                         
+        ":normal o
+        "let i += 1
+    "endwhile
+    ":normal gg
+    "let i = 0
+    "while i <= 40
+        ":normal h
+        "let i += 1
+    "endwhile
 
-    :normal R
-    return "hi" 
-endfunction
+    ":normal R
+    "return "hi" 
+"endfunction
 
 autocmd FileType make setlocal noexpandtab
 au FileType perl set filetype=prolog
