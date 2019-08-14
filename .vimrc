@@ -5,6 +5,7 @@ set tabstop=8
 set softtabstop=4
 "set noexpandtab
 set expandtab
+set noautoindent
 
 set t_Co=256
 set ruler
@@ -30,12 +31,49 @@ filetype plugin indent on
 "filetype plugin on
 let g:SimpylFold_docstring_preview = 0
 
-set foldmethod=indent
+set foldmethod=expr
+"set foldlevel=99
 au BufWinLeave * silent mkview  " 保存文件的折叠状态
 au BufRead * silent loadview    " 恢复文件的折叠状态
 nnoremap <space> za             " 用空格来切换折叠状态
 
 set backspace=indent,eol,start
+
+""""""""""""""
+set foldexpr=GetPotionFold(v:lnum)
+
+function! IndentLevel(lnum)
+    return indent(a:lnum) / &shiftwidth
+endfunction
+
+function! NextNonBlankLine(lnum)
+    let numlines = line('$')
+    let current = a:lnum + 1
+
+    while current <= numlines
+        if getline(current) =~? '\v\S'
+            return current
+        endif
+
+        let current += 1
+    endwhile
+
+    return -2
+
+endfunction 
+    
+function! GetPotionFold(lnum)
+    let current = IndentLevel(a:lnum)-1
+    if getline(a:lnum) =~? '\v^\s*\#\#\#\#.*$' 
+        return current
+    elseif getline(a:lnum) =~? '\v^\s*$'
+        return -1
+    endif
+    return IndentLevel(a:lnum)
+endfunction
+
+
+""""""""""""""
 
 "inoremap ( ()<LEFT>
 "inoremap () ()
@@ -64,11 +102,16 @@ inoremap <leader>[] <esc>viw<esc>a]<esc>bi[<esc>lela
 inoremap <leader>() <esc>viw<esc>a)<esc>bi(<esc>lela
 inoremap <leader>{} <esc>viw<esc>a}<esc>bi{<esc>lela
 
+"Unwrap
+inoremap <leader>u' <esc>wxbhxlea
+nnoremap <leader>u' <esc>wxbhxle
+
 "indent 
 inoremap <leader>> <Esc>>>a
 inoremap <leader>< <Esc><<a
 
 nnoremap <leader>" i<esc>viw<esc>a"<esc>bi"<esc>lel
+nnoremap <leader>' <esc>viw<esc>a'<esc>bi'<esc>lel
 
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
@@ -77,6 +120,8 @@ nnoremap <c-=> 0ggVG=
 
 nnoremap <c-o> o
 "iabbrev adn and
+iabbrev slef self
+iabbrev sefl self
 
 "nnoremap gl :YcmCompleter GoToDeclaration
 "nnoremap gf :YcmCompleter GoToDefinition

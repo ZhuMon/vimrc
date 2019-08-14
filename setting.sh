@@ -8,7 +8,7 @@
 
 rm ~/.vimrc
 link ./.vimrc ~/.vimrc
-mkdir ~/.vim/bundle
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+# mkdir ~/.vim/bundle
+# git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
-git clone https://github.com/scrooloose/nerdcommenter ~/.vim/bundle/nerdcommenter
+# git clone https://github.com/scrooloose/nerdcommenter ~/.vim/bundle/nerdcommenter
