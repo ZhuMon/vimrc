@@ -7,4 +7,5 @@ source ~/.zshrc
 echo "set font to Ubunto Mono Regular"
 echo "ZSH_THEME=\"powerlevel9k/powerlevel9k\"" >> ~/.zshrc
 echo "plugins=(git\n\t\tzsh-syntax-highlighting\n\t\tzsh-autosuggestions)" >> ~/.zshrc
+echo "source \$ZSH/oh-my-zsh.sh"
 echo "reboot"
