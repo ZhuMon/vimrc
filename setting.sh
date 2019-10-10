@@ -4,11 +4,14 @@
 # build time: 
 #   2019/1/5
 # last change:
-#   2019/6/1
+#   2019/10/10
 
-rm ~/.vimrc
+sudo apt install git
+sudo apt install vim
+sudo apt install curl
+rm -f ~/.vimrc
 link ./.vimrc ~/.vimrc
-# mkdir ~/.vim/bundle
-# git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+mkdir ~/.vim/bundle
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
-# git clone https://github.com/scrooloose/nerdcommenter ~/.vim/bundle/nerdcommenter
+git clone https://github.com/scrooloose/nerdcommenter ~/.vim/bundle/nerdcommenter
