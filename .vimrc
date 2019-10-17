@@ -40,6 +40,7 @@ nnoremap <space> za             " 用空格来切换折叠状态
 set backspace=indent,eol,start
 
 """"""""""""""
+":echom foldlevel(1)
 set foldexpr=GetPotionFold(v:lnum)
 
 function! IndentLevel(lnum)
@@ -63,10 +64,13 @@ function! NextNonBlankLine(lnum)
 endfunction 
     
 function! GetPotionFold(lnum)
-    let current = IndentLevel(a:lnum)-1
-    if getline(a:lnum) =~? '\v^\s*\#\#\#\#.*$' 
-        return current
-    elseif getline(a:lnum) =~? '\v^\s*$'
+    let current = IndentLevel(a:lnum+1)
+    " if next line is ####, level is 2
+    " then the level of this line is 1.5
+    if getline(a:lnum+1) =~? '\v^\s*\#\#\#\#.*$' 
+        return '<'.current
+    elseif getline(a:lnum) =~? '\v^\s*$' 
+        " blank line
         return -1
     endif
     return IndentLevel(a:lnum)
