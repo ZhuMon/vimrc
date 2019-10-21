@@ -6,6 +6,8 @@ set softtabstop=4
 "set noexpandtab
 set expandtab
 set noautoindent
+" end of line will appear $
+"set list
 
 set t_Co=256
 set ruler
@@ -62,7 +64,7 @@ function! NextNonBlankLine(lnum)
     return -2
 
 endfunction 
-    
+
 function! GetPotionFold(lnum)
     let current = IndentLevel(a:lnum+1)
     " if next line is ####, level is 2
@@ -165,3 +167,7 @@ endif
 autocmd FileType make setlocal noexpandtab
 au FileType perl set filetype=prolog
 au BufNewFile,BufRead *.dots set filetype=asciidots
+
+" push F2 or F3 to run python in vim
+au BufRead,BufNewFile *.py noremap <F2> :% w !python <Enter>
+au BufRead,BufNewFile *.py noremap <F3> :% w !python3 <Enter>
