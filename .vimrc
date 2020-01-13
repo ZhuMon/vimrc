@@ -17,20 +17,25 @@ set nu
 set nuw=1
 set cursorline
 
+""" highlight text
 hi LineNr cterm=bold ctermfg=DarkGrey ctermbg=NONE 
 hi CursorLineNr cterm=bold ctermfg=Green ctermbg=NONE
+highlight Folded ctermfg=1 guifg=Red
+highlight FoldColumn ctermfg=1 guifg=Red
 
 set nocompatible
-filetype off                    " required!
+filetype off                     "required!
 set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#begin()
-Bundle 'VundleVim/Vundle.vim'
-Bundle 'scrooloose/nerdcommenter'
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'scrooloose/nerdcommenter'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'prettier/vim-prettier'
+Plugin 'mtdl9/vim-log-highlighting'
 call vundle#end()
 filetype plugin indent on
-"filetype plugin on
+filetype plugin on
 let g:SimpylFold_docstring_preview = 0
 
 set foldmethod=expr
@@ -171,3 +176,7 @@ au BufNewFile,BufRead *.dots set filetype=asciidots
 " push F2 or F3 to run python in vim
 au BufRead,BufNewFile *.py noremap <F2> :% w !python <Enter>
 au BufRead,BufNewFile *.py noremap <F3> :% w !python3 <Enter>
+au BufRead,BufNewFile *.py noremap <F6> :% w !python3.6 <Enter>
+au BufRead,BufNewFile .gitignore set filetype=python
+au BufRead,BufNewFile *.log set filetype=log
+au BufRead,BufNewFile *_log set filetype=log
