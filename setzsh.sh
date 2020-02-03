@@ -7,7 +7,7 @@ chsh -s /bin/zsh
 sudo apt-get install powerline
 sudo apt-get install fonts-powerline
 
-git clone https://github.com/powerline/fonts.git ~/
+git clone https://github.com/powerline/fonts.git ~/fonts
 # install
 ~/fonts/install.sh
 
