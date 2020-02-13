@@ -40,11 +40,13 @@ let g:SimpylFold_docstring_preview = 0
 
 set foldmethod=expr
 "set foldlevel=99
-au BufWinLeave * silent mkview  " 保存文件的折叠状态
-au BufRead * silent loadview    " 恢复文件的折叠状态
-nnoremap <space> za             " 用空格来切换折叠状态
-
+au BufWinLeave * silent mkview  " 保存文件的折疊狀態
+au BufRead * silent loadview    " 恢復文件的折疊狀態
+nnoremap <space> za		" 用空格來切換折疊狀態
+" zR : open all fold
+" zM : close all fold
 set backspace=indent,eol,start
+
 
 """"""""""""""
 ":echom foldlevel(1)
@@ -93,25 +95,29 @@ inoremap {<CR> {<CR>}<Esc>kA<CR>
 
 inoremap <c-o> <Esc>o
 inoremap <c-d> <Esc>ddi
+
 "make a word to Uppercase
 inoremap <c-u> <Esc>viwU`>a
+
 inoremap jk <Esc>
+inoremap jK <Esc>
+inoremap Jk <Esc>
+inoremap JK <Esc>
+
 "inoremap <Esc> <nop>
-inoremap <c-j> <Esc>I
-inoremap <c-k> <Esc>A
 inoremap <c-y> <Esc>yya
 inoremap <c-p> <Esc>pa
 inoremap <c-x> <Esc>lxi
 
-let mapleader=";"
-inoremap <leader>; <Esc>d^xi
-inoremap <leader><space> ;
+let mapleader="0"
 "Make a word wrap by "
 inoremap <leader>" <esc>viw<esc>a"<esc>bi"<esc>lela
 inoremap <leader>' <esc>viw<esc>a'<esc>bi'<esc>lela
 inoremap <leader>[] <esc>viw<esc>a]<esc>bi[<esc>lela
 inoremap <leader>() <esc>viw<esc>a)<esc>bi(<esc>lela
 inoremap <leader>{} <esc>viw<esc>a}<esc>bi{<esc>lela
+nnoremap <leader>" i<esc>viw<esc>a"<esc>bi"<esc>lel
+nnoremap <leader>' <esc>viw<esc>a'<esc>bi'<esc>lel
 
 "Unwrap
 inoremap <leader>u' <esc>wxbhxlea
@@ -121,12 +127,10 @@ nnoremap <leader>u' <esc>wxbhxle
 inoremap <leader>> <Esc>>>a
 inoremap <leader>< <Esc><<a
 
-nnoremap <leader>" i<esc>viw<esc>a"<esc>bi"<esc>lel
-nnoremap <leader>' <esc>viw<esc>a'<esc>bi'<esc>lel
-
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
+" autoindent all
 nnoremap <c-=> 0ggVG=
 
 nnoremap <c-o> o
