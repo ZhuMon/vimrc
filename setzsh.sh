@@ -2,7 +2,7 @@ sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get install zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-chsh -s /bin/zsh
+
 
 sudo apt-get install powerline
 sudo apt-get install fonts-powerline
@@ -19,3 +19,4 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/
 
 git clone git://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/plugins/zsh-autosuggestions
 
+chsh -s /bin/zsh
