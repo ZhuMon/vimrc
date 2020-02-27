@@ -6,16 +6,21 @@ set softtabstop=4
 "set noexpandtab
 set expandtab
 set noautoindent
+
 " end of line will appear $
 "set list
 
 set t_Co=256
 set ruler
 set mouse=a
-
+set ic " when searching don't mind upper or lower 
 set nu
 set nuw=1
 set cursorline
+
+" 按下 F4 可以自由開關行號
+map <F4> : set nu!<BAR>set nonu?<CR> 
+
 
 """ highlight text
 hi LineNr cterm=bold ctermfg=DarkGrey ctermbg=NONE 
@@ -109,7 +114,7 @@ inoremap <c-y> <Esc>yya
 inoremap <c-p> <Esc>pa
 inoremap <c-x> <Esc>lxi
 
-let mapleader="0"
+let mapleader="9"
 "Make a word wrap by "
 inoremap <leader>" <esc>viw<esc>a"<esc>bi"<esc>lela
 inoremap <leader>' <esc>viw<esc>a'<esc>bi'<esc>lela
@@ -184,3 +189,9 @@ au BufRead,BufNewFile *.py noremap <F6> :% w !python3.6 <Enter>
 au BufRead,BufNewFile .gitignore set filetype=python
 au BufRead,BufNewFile *.log set filetype=log
 au BufRead,BufNewFile *_log set filetype=log
+
+function! Formatonsave()
+  let l:formatdiff = 1
+  py3f $CLANG_FORMAT_PATH
+endfunction
+autocmd BufWrite *.h,*.hpp,*.c,*.cpp,*.c++ call Formatonsave()
