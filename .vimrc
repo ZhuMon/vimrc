@@ -195,3 +195,17 @@ function! Formatonsave()
   py3f $CLANG_FORMAT_PATH
 endfunction
 autocmd BufWrite *.h,*.hpp,*.c,*.cpp,*.c++ call Formatonsave()
+
+function! AutoInclude()
+    normal! i#include <stdio.h>
+    normal! o#include <stdlib.h>
+    normal! o
+    normal! oint main(int argc, char *argv[]){
+    normal! o
+    normal! oreturn 0;
+    normal! o}
+    normal! kki     
+endfunction
+autocmd BufNewFile *.c call AutoInclude()
+
+
