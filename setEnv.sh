@@ -16,7 +16,6 @@ if [ $sysOS = "Darwin" ]; then
 
 elif [ $sysOS = "Linux" ]; then
     echo "On Linux"
-    echo $shellrc
     echo "export CLANG_FORMAT_PATH to $shellrc"
     echo "export CLANG_FORMAT_PATH=\"/usr/share/vim/addons/syntax/clang-format.py\"" >> $shellrc
     echo "export clang_format_fallback_style=\"$PWD/.clang-format\"" >> $shellrc
