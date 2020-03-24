@@ -13,6 +13,8 @@ fi
 
 sudo apt install build-essential git-core valgrind
 sudo apt install cppcheck clang-format aspell colordiff valgrind
+sudo apt install linux-headers-`uname -r`
+sudo apt install util-linux strace gnuplot-nox
 
 if [ `echo $SHELL | grep zsh` ]; then
     shellrc="$HOME/.zshrc"
@@ -27,4 +29,4 @@ if [ $CPPCHECK_VER -lt 90 ]; then
     echo "export PATH=/snap/bin:\$PATH" >> ${shellrc}
 fi
 
-echo "Remember to re-source ${shellrc}"
+echo "\e[1;31mRemember to re-source ${shellrc} \e[0m"
