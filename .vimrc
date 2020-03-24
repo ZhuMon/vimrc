@@ -181,6 +181,7 @@ endif
 autocmd FileType make setlocal noexpandtab
 au FileType perl set filetype=prolog
 au BufNewFile,BufRead *.dots set filetype=asciidots
+au FileType gp set filetype=gnuplot
 
 " push F2 or F3 to run python in vim
 au BufRead,BufNewFile *.py noremap <F2> :% w !python <Enter>
