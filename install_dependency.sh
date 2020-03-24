@@ -6,6 +6,11 @@
 # last change:
 #   2020/3/25
 
+if [ `uname` != "Linux" ]; then
+    echo "Not in Linux, exit."
+    exit 0;
+fi
+
 sudo apt install build-essential git-core valgrind
 sudo apt install cppcheck clang-format aspell colordiff valgrind
 
