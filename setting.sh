@@ -4,11 +4,11 @@
 # build time: 
 #   2019/1/5
 # last change:
-#   2020/03/10
+#   2020/03/24
 
 # install dependency
-$SUDO apt-get update
-$SUDO apt-get install -y build-essential cmake python3-dev python3-pip zsh git curl sed
+sudo apt-get update
+sudo apt-get install -y build-essential cmake python3-dev python3-pip zsh git curl sed
 
 # link .vimrc
 rm -f $HOME/.vimrc
