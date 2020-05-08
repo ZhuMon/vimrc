@@ -4,11 +4,23 @@
 # build time: 
 #   2019/1/5
 # last change:
-#   2020/03/24
+#   2020/05/07
 
 # install dependency
-sudo apt-get update
-sudo apt-get install -y build-essential cmake python3-dev python3-pip zsh git curl sed
+
+sysOS=`uname`
+if [ $sysOS = "Darwin" ]; then
+    echo "On Mac OSX"
+
+elif [ $sysOS = "Linux" ]; then
+    echo "On Linux, Install dependency"
+    sudo apt-get update
+    sudo apt-get install -y build-essential cmake python3-dev python3-pip zsh git curl sed
+else
+    echo "On Windows?"
+
+fi
+
 
 # link .vimrc
 rm -f $HOME/.vimrc
