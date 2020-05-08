@@ -4,7 +4,7 @@
 # build time: 
 #   2019/1/5
 # last change:
-#   2020/05/07
+#   2020/05/09
 
 # install dependency
 
@@ -15,9 +15,12 @@ if [ $sysOS = "Darwin" ]; then
 elif [ $sysOS = "Linux" ]; then
     echo "On Linux, Install dependency"
     sudo apt-get update
-    sudo apt-get install -y build-essential cmake python3-dev python3-pip zsh git curl sed
+    sudo apt-get install -y build-essential cmake python3-dev python3-pip zsh git curl sed clang-format
+elif [ `uname | cut -d"-" -f1` = "MINGW64_NT" ]; then
+    pacman -S git mingw-w64-x86_64-gcc sed make
 else
     echo "On Windows?"
+
 
 fi
 
