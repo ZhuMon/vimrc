@@ -51,6 +51,7 @@ Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 " instantly show markdown
 Plugin 'suan/vim-instant-markdown', {'rtp': 'after'}
+Plugin 'rhysd/vim-clang-format'
 call vundle#end()
 filetype plugin indent on
 filetype plugin on
@@ -245,7 +246,7 @@ au BufRead,BufNewFile *_log set filetype=log
 
 function! Formatonsave()
   let l:formatdiff = 1
-  py3f $CLANG_FORMAT_PATH
+  :ClangFormat
 endfunction
 
 autocmd BufWrite *.h,*.hpp,*.c,*.cpp,*.c++ call Formatonsave()
