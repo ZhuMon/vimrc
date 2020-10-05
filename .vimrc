@@ -52,6 +52,8 @@ Plugin 'plasticboy/vim-markdown'
 " instantly show markdown
 Plugin 'suan/vim-instant-markdown', {'rtp': 'after'}
 Plugin 'rhysd/vim-clang-format'
+" python style format
+Plugin 'tell-k/vim-autopep8'
 call vundle#end()
 filetype plugin indent on
 filetype plugin on
@@ -264,3 +266,8 @@ let g:vim_markdown_math = 1 " LaTeX math
 
 " :Toc 將視窗垂直切割顯示所有 header 的目錄列表，在任一 header 上按 enter 就可以直接跳至該標題
 autocmd FileType *.md, README, Readme nnoremap <expr><enter> &ft=="qf" ? "<cr>:lcl<cr>" : (getpos(".")[2]==1 ? "i<cr><esc>": "i<cr><esc>l")
+
+""" Vim autopep8 config
+autocmd BufWrite *.py call Autopep8()
+
+let g:autopep8_disable_show_diff=1

@@ -4,7 +4,7 @@
 # build time: 
 #   2019/1/5
 # last change:
-#   2020/05/09
+#   2020/10/5
 
 # install dependency
 
@@ -16,6 +16,7 @@ elif [ $sysOS = "Linux" ]; then
     echo "On Linux, Install dependency"
     sudo apt-get update
     sudo apt-get install -y build-essential cmake python3-dev python3-pip zsh git curl sed clang-format
+    pip3 install autopep8
 elif [ `uname | cut -d"-" -f1` = "MINGW64_NT" ]; then
     pacman -S git mingw-w64-x86_64-gcc sed make
 else
@@ -41,7 +42,7 @@ sed -i "s/\"@@@/Plugin 'Valloric\/YouCompleteMe'/" $HOME/.vimrc
 # install YouCompleteMe
 git clone --depth=1 https://github.com/Valloric/YouCompleteMe $HOME/.vim/bundle/YouCompleteMe
 cd $HOME/.vim/bundle/YouCompleteMe
-git submodule update --init --recursive
+git submodule update --init --recursive --depth=1
 python3 install.py --clang-completer
 
 cd ~
