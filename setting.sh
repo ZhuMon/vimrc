@@ -16,6 +16,8 @@ elif [ $sysOS = "Linux" ]; then
     echo "On Linux, Install dependency"
     sudo apt-get update
     sudo apt-get install -y build-essential cmake python3-dev python3-pip zsh git curl sed clang-format
+    # for vim plugin md-img-paste
+    sudo apt-get install -y xclip
     pip3 install autopep8
 elif [ `uname | cut -d"-" -f1` = "MINGW64_NT" ]; then
     pacman -S git mingw-w64-x86_64-gcc sed make

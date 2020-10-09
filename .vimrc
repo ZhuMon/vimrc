@@ -39,7 +39,6 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'prettier/vim-prettier'
 Plugin 'mtdl9/vim-log-highlighting'
 Plugin 'mbbill/undotree'
 Plugin 'rdnetto/YCM-Generator'
@@ -54,6 +53,8 @@ Plugin 'suan/vim-instant-markdown', {'rtp': 'after'}
 Plugin 'rhysd/vim-clang-format'
 " python style format
 Plugin 'tell-k/vim-autopep8'
+" paste images into markdown files
+Plugin 'ferrine/md-img-paste.vim'
 call vundle#end()
 filetype plugin indent on
 filetype plugin on
@@ -154,7 +155,7 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 " autoindent all
 nnoremap <c-=> 0ggVG=
 
-nnoremap <c-o> o
+"nnoremap <c-o> o
 "iabbrev adn and
 iabbrev slef self
 iabbrev sefl self
@@ -239,9 +240,6 @@ au FileType perl set filetype=prolog
 au BufNewFile,BufRead *.dots set filetype=asciidots
 au FileType gp set filetype=gnuplot
 
-" push F2 or F3 to run python in vim
-au BufRead,BufNewFile *.py noremap <F2> :% w !python <Enter>
-au BufRead,BufNewFile *.py noremap <F3> :% w !python3 <Enter>
 au BufRead,BufNewFile .gitignore set filetype=python
 au BufRead,BufNewFile *.log set filetype=log
 au BufRead,BufNewFile *_log set filetype=log
@@ -256,18 +254,42 @@ autocmd BufWrite *.h,*.hpp,*.c,*.cpp,*.c++ call Formatonsave()
 nnoremap <F5> :UndotreeToggle<cr>
 
 
-""" Vim Markdown config
-let g:vim_markdown_math = 1 " LaTeX math
-" ]] : 前往下一個 header
-" [[ : 前往上一個 header
-" ][ : 前往上一個同層級 header
-" [] : 前往下一個同層級 header
-" ]c : 前往目前所在段落的 header，也就是在 h3 段落中會跳到所屬的 h2 header
-
-" :Toc 將視窗垂直切割顯示所有 header 的目錄列表，在任一 header 上按 enter 就可以直接跳至該標題
-autocmd FileType *.md, README, Readme nnoremap <expr><enter> &ft=="qf" ? "<cr>:lcl<cr>" : (getpos(".")[2]==1 ? "i<cr><esc>": "i<cr><esc>l")
-
-""" Vim autopep8 config
+""" Python Config
 autocmd BufWrite *.py call Autopep8()
+autocmd FileType *.py call SetPythonOptions()
 
-let g:autopep8_disable_show_diff=1
+function SetPythonOptions()
+    " press F2 or F3 to run python file
+    noremap <F2> :% w !python <CR>
+    noremap <F3> :% w !python3 <CR>
+
+    """ Vim autopep8 config
+    let g:autopep8_disable_show_diff=1
+endfunction
+
+
+
+""" Markdown config
+autocmd FileType *.md, README, Readme call SetMDOptions()
+
+function SetMDOptions()
+    """ vim-markdown
+    let g:vim_markdown_math = 1 " LaTeX math
+    " ]] : 前往下一個 header
+    " [[ : 前往上一個 header
+    " ][ : 前往上一個同層級 header
+    " [] : 前往下一個同層級 header
+    " ]c : 前往目前所在段落的 header，也就是在 h3 段落中會跳到所屬的 h2 header
+
+    " :Toc 將視窗垂直切割顯示所有 header 的目錄列表，在任一 header 上按 enter 就可以直接跳至該標題
+    nnoremap <expr><enter> &ft=="qf" ? "<cr>:lcl<cr>" : (getpos(".")[2]==1 ? "i<cr><esc>": "i<cr><esc>l")
+    """ vim-instant-markdown
+    """ md-img-paste config
+    " there are some defaults for image directory and image name, you can change them
+    nmap <buffer><silent> <leader>p :call mdip#MarkdownClipboardImage()<CR>
+    let g:mdip_imgdir = 'img'
+    let g:mdip_imgname = 'image'
+
+endfunction
+
+
