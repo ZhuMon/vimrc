@@ -235,7 +235,7 @@ endif
     "return "hi" 
 "endfunction
 
-autocmd FileType make setlocal noexpandtab
+autocmd BufNewFile,BufRead make setlocal noexpandtab
 au FileType perl set filetype=prolog
 au BufNewFile,BufRead *.dots set filetype=asciidots
 au FileType gp set filetype=gnuplot
@@ -255,10 +255,8 @@ nnoremap <F5> :UndotreeToggle<cr>
 
 
 """ Python Config
-autocmd BufWrite *.py call Autopep8()
-autocmd FileType *.py call SetPythonOptions()
 
-function SetPythonOptions()
+function! SetPythonOptions()
     " press F2 or F3 to run python file
     noremap <F2> :% w !python <CR>
     noremap <F3> :% w !python3 <CR>
@@ -267,12 +265,12 @@ function SetPythonOptions()
     let g:autopep8_disable_show_diff=1
 endfunction
 
+autocmd BufWrite *.py call Autopep8()
+autocmd BufRead,BufNewFile *.py call SetPythonOptions()
 
 
 """ Markdown config
-autocmd FileType *.md, README, Readme call SetMDOptions()
-
-function SetMDOptions()
+function! SetMDOptions()
     """ vim-markdown
     let g:vim_markdown_math = 1 " LaTeX math
     " ]] : 前往下一個 header
@@ -292,4 +290,5 @@ function SetMDOptions()
 
 endfunction
 
+autocmd BufRead,BufNewFile *.md, README, Readme call SetMDOptions()
 
