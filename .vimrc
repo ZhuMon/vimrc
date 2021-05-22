@@ -39,6 +39,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'prettier/vim-prettier'
 Plugin 'mtdl9/vim-log-highlighting'
 Plugin 'mbbill/undotree'
 Plugin 'rdnetto/YCM-Generator'
@@ -50,11 +51,9 @@ Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 " instantly show markdown
 Plugin 'suan/vim-instant-markdown', {'rtp': 'after'}
-Plugin 'rhysd/vim-clang-format'
-" python style format
-Plugin 'tell-k/vim-autopep8'
-" paste images into markdown files
-Plugin 'ferrine/md-img-paste.vim'
+" latex
+Plugin 'vim-latex/vim-latex'
+Plugin 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 call vundle#end()
 filetype plugin indent on
 filetype plugin on
@@ -155,13 +154,12 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 " autoindent all
 nnoremap <c-=> 0ggVG=
 
-"nnoremap <c-o> o
 "iabbrev adn and
 iabbrev slef self
 iabbrev sefl self
 
 
-""" YCM config
+"----------------- YCM config ----------------------------------------
 
 "nnoremap gl :YcmCompleter GoToDeclaration
 "nnoremap gf :YcmCompleter GoToDefinition
@@ -182,8 +180,7 @@ let g:ycm_confirm_extra_conf = 0
 " where to start complete
 " let g:ycm_min_num_of_chars_for_completion = 2
 
-"""""""""""""""""""
-
+"----------------- UltiSnip config -----------------------------------
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
@@ -203,7 +200,7 @@ let g:snips_github = "https://github.com/ZhuMon"
 
 filetype indent on
 
-" record last mouse
+"----------------- record last mouse ---------------------------------
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"jjkk" | endif
 endif
@@ -240,13 +237,16 @@ au FileType perl set filetype=prolog
 au BufNewFile,BufRead *.dots set filetype=asciidots
 au FileType gp set filetype=gnuplot
 
+" push F2 or F3 to run python in vim
+au BufRead,BufNewFile *.py noremap <F2> :% w !python <Enter>
+au BufRead,BufNewFile *.py noremap <F3> :% w !python3 <Enter>
 au BufRead,BufNewFile .gitignore set filetype=python
 au BufRead,BufNewFile *.log set filetype=log
 au BufRead,BufNewFile *_log set filetype=log
 
 function! Formatonsave()
   let l:formatdiff = 1
-  :ClangFormat
+  py3f $CLANG_FORMAT_PATH
 endfunction
 
 autocmd BufWrite *.h,*.hpp,*.c,*.cpp,*.c++ call Formatonsave()
@@ -269,7 +269,7 @@ autocmd BufWrite *.py call Autopep8()
 autocmd BufRead,BufNewFile *.py call SetPythonOptions()
 
 
-""" Markdown config
+"----------------- Vim Markdown config -------------------------------
 function! SetMDOptions()
     """ vim-markdown
     let g:vim_markdown_math = 1 " LaTeX math
@@ -289,6 +289,32 @@ function! SetMDOptions()
     let g:mdip_imgname = 'image'
 
 endfunction
-
 autocmd BufRead,BufNewFile *.md, README, Readme call SetMDOptions()
+
+"----------------- vim-latex -----------------------------------------
+" IMPORTANT: win32 users will need to have 'shellslash' set so that latex
+" can be called correctly.
+set shellslash
+
+" IMPORTANT: grep will sometimes skip displaying the file name if you
+" search in a singe file. This will confuse Latex-Suite. Set your grep
+" program to always generate a file-name.
+set grepprg=grep\ -nH\ $*
+
+" OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults to
+" 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
+" The following changes the default filetype back to 'tex':
+let g:tex_flavor='latex'
+autocmd filetype tex imap ∫ Tex_MathBF
+autocmd filetype tex imap ç Tex_MathCal
+autocmd filetype tex imap ¬ Tex_LeftRight
+autocmd filetype tex imap ˆ Tex_InsertItemOnThisLine
+
+"----------------- latex live preview --------------------------------
+autocmd filetype tex setl updatetime=1000
+let g:livepreview_previewer = 'open -a Preview'
+autocmd filetype tex :LLPStartPreview
+nmap <F6> :LLPStartPreview<CR>
+imap <F6> <ESC>:LLPStartPreview<CR>
+
 
