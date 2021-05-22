@@ -289,7 +289,7 @@ function! SetMDOptions()
     let g:mdip_imgname = 'image'
 
 endfunction
-autocmd BufRead,BufNewFile *.md, README, Readme call SetMDOptions()
+autocmd BufRead,BufNewFile *.md,README,Readme call SetMDOptions()
 
 "----------------- vim-latex -----------------------------------------
 " IMPORTANT: win32 users will need to have 'shellslash' set so that latex
@@ -312,7 +312,7 @@ autocmd filetype tex imap ˆ Tex_InsertItemOnThisLine
 
 "----------------- latex live preview --------------------------------
 autocmd filetype tex setl updatetime=1000
-let g:livepreview_previewer = 'open -a Preview'
+let g:livepreview_previewer = 'open -a evince'
 autocmd filetype tex :LLPStartPreview
 nmap <F6> :LLPStartPreview<CR>
 imap <F6> <ESC>:LLPStartPreview<CR>

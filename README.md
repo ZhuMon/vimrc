@@ -10,6 +10,10 @@
     ```
     sh setzsh.sh
     ```
+* Set Default editor as vim
+    ```
+    sh setEnv.sh
+    ```
 
 ## p4 config
 * add `au BufRead, BufNewFile *.p4, *.P4 set filetype=p4` in `$HOME/.vim/ftdetect/p4.vim`
