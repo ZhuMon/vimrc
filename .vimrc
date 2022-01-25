@@ -54,12 +54,19 @@ Plugin 'suan/vim-instant-markdown', {'rtp': 'after'}
 " latex
 Plugin 'vim-latex/vim-latex'
 Plugin 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+Plugin 'rhysd/vim-clang-format'
+" python style format
+Plugin 'tell-k/vim-autopep8'
+" paste images into markdown files
+Plugin 'ferrine/md-img-paste.vim'
+" zeek
+Plugin 'zeek/vim-zeek'
 call vundle#end()
 filetype plugin indent on
 filetype plugin on
 let g:SimpylFold_docstring_preview = 0
 
-set foldmethod=expr
+set foldmethod=manual
 "set foldlevel=99
 au BufWinLeave * silent mkview  " 保存文件的折疊狀態
 au BufRead * silent loadview    " 恢復文件的折疊狀態
@@ -254,13 +261,12 @@ autocmd BufWrite *.h,*.hpp,*.c,*.cpp,*.c++ call Formatonsave()
 nnoremap <F5> :UndotreeToggle<cr>
 
 
-""" Python Config
+"----------------- Python config -------------------------------------
 
 function! SetPythonOptions()
     " press F2 or F3 to run python file
     noremap <F2> :% w !python <CR>
     noremap <F3> :% w !python3 <CR>
-
     """ Vim autopep8 config
     let g:autopep8_disable_show_diff=1
 endfunction
@@ -289,7 +295,7 @@ function! SetMDOptions()
     let g:mdip_imgname = 'image'
 
 endfunction
-autocmd BufRead,BufNewFile *.md,README,Readme call SetMDOptions()
+autocmd BufRead,BufNewFile,FileType *.md,README,Readme call SetMDOptions()
 
 "----------------- vim-latex -----------------------------------------
 " IMPORTANT: win32 users will need to have 'shellslash' set so that latex
