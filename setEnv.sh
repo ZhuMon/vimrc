@@ -14,6 +14,8 @@ if [ $sysOS = "Darwin" ]; then
 
 elif [ $sysOS = "Linux" ]; then
     echo "On Linux"
+    echo "export CLANG_FORMAT_PATH='/usr/share/vim/addons/syntax/clang-format.py'" >> ${shellrc}
+    echo "export CLANG_FORMAT_CUS='${PWD}/.clang-format'" >> ${shellrc}
 elif [ `uname | cut -d"-" -f1` = "MINGW64_NT" ]; then
     echo "On Windows MinGW"
 else

@@ -21,6 +21,8 @@ elif [ $sysOS = "Linux" ]; then
     sudo apt-get install -y xclip
     sudo apt install -y cmake vim-nox
     python3 -m pip install autopep8
+    # latex dependency
+    #sudo apt-get install texlive-latex-base texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra latex-cjk-all
 elif [ `uname | cut -d"-" -f1` = "MINGW64_NT" ]; then
     pacman -S git mingw-w64-x86_64-gcc sed make
 else
