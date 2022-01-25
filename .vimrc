@@ -274,9 +274,9 @@ endfunction
 autocmd BufWrite *.py call Autopep8()
 autocmd BufRead,BufNewFile *.py call SetPythonOptions()
 
-
 "----------------- Vim Markdown config -------------------------------
 function! SetMDOptions()
+
     """ vim-markdown
     let g:vim_markdown_math = 1 " LaTeX math
     " ]] : 前往下一個 header
