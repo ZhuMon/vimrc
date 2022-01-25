@@ -239,7 +239,7 @@ endif
     "return "hi" 
 "endfunction
 
-autocmd BufNewFile,BufRead make setlocal noexpandtab
+autocmd FileType make setlocal noexpandtab
 au FileType perl set filetype=prolog
 au BufNewFile,BufRead *.dots set filetype=asciidots
 au FileType gp set filetype=gnuplot
