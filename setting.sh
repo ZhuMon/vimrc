@@ -20,7 +20,7 @@ elif [ $sysOS = "Linux" ]; then
     # for vim plugin md-img-paste
     sudo apt-get install -y xclip
     sudo apt install -y cmake vim-nox
-    pip3 install autopep8
+    python3 -m pip install autopep8
 elif [ `uname | cut -d"-" -f1` = "MINGW64_NT" ]; then
     pacman -S git mingw-w64-x86_64-gcc sed make
 else
