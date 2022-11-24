@@ -50,17 +50,21 @@ Plugin 'ervandew/supertab'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 " instantly show markdown
-Plugin 'suan/vim-instant-markdown', {'rtp': 'after'}
+Plugin 'suan/vim-instant-markdown'
 " latex
-Plugin 'vim-latex/vim-latex'
+"Plugin 'vim-latex/vim-latex'
 Plugin 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 Plugin 'rhysd/vim-clang-format'
 " python style format
-Plugin 'tell-k/vim-autopep8'
+Plugin 'psf/black'
 " paste images into markdown files
 Plugin 'ferrine/md-img-paste.vim'
 " zeek
 Plugin 'zeek/vim-zeek'
+" go
+Plugin 'fatih/vim-go'
+" yaml
+Plugin 'yasuhiroki/github-actions-yaml.vim'
 call vundle#end()
 filetype plugin indent on
 filetype plugin on
@@ -201,9 +205,9 @@ let g:UltiSnipsExpandTrigger = "<C-e>"
 let g:UltiSnipsJumpForwardTrigger = "<C-j>"
 let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
 
-let g:snips_email = "richardlin0212@gmail.com"
-let g:snips_author = "YX Lin"
-let g:snips_github = "https://github.com/ZhuMon"
+let g:snips_email = "richard_ys_lin@trendmicro.com"
+let g:snips_author = "Richard YS Lin"
+let g:snips_github = "https://github.trendmicro.com/richard_ys_lin"
 
 filetype indent on
 
@@ -267,11 +271,13 @@ function! SetPythonOptions()
     " press F2 or F3 to run python file
     noremap <F2> :% w !python <CR>
     noremap <F3> :% w !python3 <CR>
-    """ Vim autopep8 config
-    let g:autopep8_disable_show_diff=1
 endfunction
 
-autocmd BufWrite *.py call Autopep8()
+augroup black_on_save
+  autocmd!
+  autocmd BufWritePre *.py Black
+augroup end
+
 autocmd BufRead,BufNewFile *.py call SetPythonOptions()
 
 "----------------- Vim Markdown config -------------------------------
@@ -322,5 +328,29 @@ let g:livepreview_previewer = 'open -a evince'
 autocmd filetype tex :LLPStartPreview
 nmap <F6> :LLPStartPreview<CR>
 imap <F6> <ESC>:LLPStartPreview<CR>
+
+
+"----------------- Go Config -----------------------------------------
+" https://github.com/fatih/vim-go
+
+"----------------- Cursor Config -------------------------------------
+
+" Use a line cursor within insert mode and a block cursor everywhere else.
+"
+" Reference chart of values:
+"   Ps = 0  -> blinking block.
+"   Ps = 1  -> blinking block (default).
+"   Ps = 2  -> steady block.
+"   Ps = 3  -> blinking underline.
+"   Ps = 4  -> steady underline.
+"   Ps = 5  -> blinking bar (xterm).
+"   Ps = 6  -> steady bar (xterm).
+let &t_SI = "\e[6 q"
+let &t_EI = "\e[2 q"
+
+
+"----------------- Json Config -------------------------------------
+" Remember to install `jq`
+autocmd filetype json exe ":%!jq ."
 
 
