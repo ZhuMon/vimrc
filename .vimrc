@@ -205,9 +205,6 @@ let g:UltiSnipsExpandTrigger = "<C-e>"
 let g:UltiSnipsJumpForwardTrigger = "<C-j>"
 let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
 
-let g:snips_email = "richard_ys_lin@trendmicro.com"
-let g:snips_author = "Richard YS Lin"
-let g:snips_github = "https://github.trendmicro.com/richard_ys_lin"
 
 filetype indent on
 
