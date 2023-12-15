@@ -32,8 +32,8 @@ highlight Folded ctermfg=1 guifg=Red
 highlight FoldColumn ctermfg=1 guifg=Red
 highlight SpellBad ctermfg=1 ctermbg=224  gui=undercurl guisp=Red
 
-filetype off                     "required!
-set rtp+=~/.vim/bundle/Vundle.vim/
+"filetype off                     "required!
+set rtp+=~/.nvim/bundle/Vundle.vim/
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdcommenter'
@@ -65,6 +65,16 @@ Plugin 'zeek/vim-zeek'
 Plugin 'fatih/vim-go'
 " yaml
 Plugin 'yasuhiroki/github-actions-yaml.vim'
+" Terraform
+Plugin 'hashivim/vim-terraform'
+" helm syntax
+Plugin 'towolf/vim-helm'
+" bash
+Plugin 'z0mbix/vim-shfmt', { 'for': 'sh' }
+" shellcheck
+Plugin 'koalaman/shellcheck'
+" ale
+Plugin 'dense-analysis/ale'
 call vundle#end()
 filetype plugin indent on
 filetype plugin on
@@ -168,6 +178,7 @@ nnoremap <c-=> 0ggVG=
 "iabbrev adn and
 iabbrev slef self
 iabbrev sefl self
+iabbrev paramter parameter
 
 
 "----------------- YCM config ----------------------------------------
@@ -279,7 +290,6 @@ autocmd BufRead,BufNewFile *.py call SetPythonOptions()
 
 "----------------- Vim Markdown config -------------------------------
 function! SetMDOptions()
-
     """ vim-markdown
     let g:vim_markdown_math = 1 " LaTeX math
     " ]] : 前往下一個 header
@@ -289,6 +299,9 @@ function! SetMDOptions()
     " ]c : 前往目前所在段落的 header，也就是在 h3 段落中會跳到所屬的 h2 header
 
     " :Toc 將視窗垂直切割顯示所有 header 的目錄列表，在任一 header 上按 enter 就可以直接跳至該標題
+    " :InsertToc: Insert table of contents at the current line.
+    " An optional argument can be used to specify how many levels of headers to display in the table of content, e.g., to display up to and including h3, use :InsertToc 3.
+    " :TableFormat: Format the table under the cursor
     nnoremap <expr><enter> &ft=="qf" ? "<cr>:lcl<cr>" : (getpos(".")[2]==1 ? "i<cr><esc>": "i<cr><esc>l")
     """ vim-instant-markdown
     """ md-img-paste config
@@ -296,6 +309,13 @@ function! SetMDOptions()
     nmap <buffer><silent> <leader>p :call mdip#MarkdownClipboardImage()<CR>
     let g:mdip_imgdir = 'img'
     let g:mdip_imgname = 'image'
+    let g:vim_markdown_frontmatter = 1
+
+    " make 'DISCUSS' keywords stand out in markdown files
+    highlight discuss ctermfg=black ctermbg=yellow cterm=bold gui=bold guifg=black
+    "match discuss /DISCUSS/
+    match discuss /ONGOING/
+
 
 endfunction
 autocmd BufRead,BufNewFile,FileType *.md,README,Readme call SetMDOptions()
@@ -329,6 +349,17 @@ imap <F6> <ESC>:LLPStartPreview<CR>
 
 "----------------- Go Config -----------------------------------------
 " https://github.com/fatih/vim-go
+" :GoDef :GoDefType 
+" 靜態分析 :GoReferrers 
+" :GoRename 
+" 快速查文件 :GoDoc :GoDocBrowser
+function! SetGoOptions()
+    set shiftwidth=8
+    set tabstop=8
+    set softtabstop=8
+endfunction
+autocmd BufRead,BufNewFile,FileType *.go call SetGoOptions()
+
 
 "----------------- Cursor Config -------------------------------------
 
@@ -348,6 +379,99 @@ let &t_EI = "\e[2 q"
 
 "----------------- Json Config -------------------------------------
 " Remember to install `jq`
-autocmd filetype json exe ":%!jq ."
+autocmd filetype json exe ":%!jq . --indent 4"
 
 
+"----------------- Copilot Config -------------------------------------
+" let g:copilot_node_command = "~/.nvm/versions/node/v16.15.0/bin/node"
+imap ‘ <Plug>(copilot-next)
+imap “ <Plug>(copilot-previous)
+let g:copilot_filetypes = {
+            \ 'markdown': v:true, 
+            \ 'yaml': v:true,
+            \ 'conf': v:true,
+            \ 'gitcommit': v:true,
+            \ 'zsh': v:true,
+            \ 'bash': v:true,
+            \}
+
+"----------------- helm Config -------------------------------------
+" set the tab blank to 2 while the file type is yaml
+function! SetYamlOptions()
+    set shiftwidth=2
+    set tabstop=2
+    set softtabstop=2
+endfunction
+autocmd BufRead,BufNewFile,FileType *.yaml,*.yml,*.tpl call SetYamlOptions()
+
+" set file type to helm
+"set ft=helm
+
+"----------------- ale Config -------------------------------------
+let g:ale_linters = {
+            \ 'yaml': ['yamllint'],
+            \ 'markdown': ['markdownlint'],
+            \ 'conf': ['shellcheck'],
+            \ 'gitcommit': ['shellcheck'],
+            \ 'zsh': ['shellcheck'],
+            \ 'bash': ['shellcheck'],
+            \ 'go': ['golangci-lint', 'gofmt'],
+            \ 'javascript': ['eslint'],
+            \}
+" python config
+"   ignore line too long
+let g:ale_python_flake8_options = '--ignore=E501'
+let g:ale_python_pylint_options = '--disable=C0301 --disable=invalid-name'
+
+" go config
+" prevent go fmt from overwriting the file and let the console show the error
+let g:go_fmt_fail_silently = 1
+
+let g:ale_go_golangci_lint_package = 1
+
+let g:ale_fixers = {
+            \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+            \}
+
+" set mypy option for --namespace-packages=True
+let g:ale_python_mypy_options = '--namespace-packages=True'
+
+" set rust config
+let g:ale_linters.rust = ['cargo', 'rls']
+let g:ale_rust_rls_toolchain = 'stable'
+
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
+
+"----------------- url encode/decode ------------------------------
+" encode the selected text by the python script
+function! Encode()
+    let l:cmd = "python3 -c 'import sys, urllib.parse; print(urllib.parse.quote(sys.stdin.read(),safe=\"\"), end=\"\")'"
+    " get the selected text
+    let l:selected_text = getline("'<")[getpos("'<")[2]-1:getpos("'>")[2]-1]
+
+    let l:encoded = system(l:cmd, l:selected_text)
+
+    " put back the encoded to the selected text with substitute
+    execute "normal! gv\"_c" . l:encoded
+
+endfunction
+
+" decode the selected text by the python script
+function! Decode()
+    let l:cmd = "python3 -c 'import sys, urllib.parse; print(urllib.parse.unquote(sys.stdin.read()), end=\"\")'"
+    " get the selected text
+    let l:selected_text = getline("'<")[getpos("'<")[2]-1:getpos("'>")[2]-1]
+
+    let l:decoded = system(l:cmd, l:selected_text)
+
+    " put back the decoded to the selected text with substitute
+    execute "normal! gv\"_c" . l:decoded
+
+endfunction
+
+" map the key to encode the selected text
+vmap <leader>en :call Encode()<CR>
+" map the key to decode the selected text
+vmap <leader>de :call Decode()<CR>
