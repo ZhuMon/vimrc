@@ -4,14 +4,14 @@
 # build time: 
 #   2019/1/5
 # last change:
-#   2020/10/5
+#   2023/12/19
 
 # install dependency
 
 sysOS=`uname`
 if [ $sysOS = "Darwin" ]; then
     echo "On Mac OSX"
-    brew install cmake python3 mono go nodejs
+    #brew install cmake python3 mono go nodejs
 
 elif [ $sysOS = "Linux" ]; then
     echo "On Linux, Install dependency"
@@ -33,19 +33,19 @@ fi
 
 
 # link .vimrc
-rm -f $HOME/.vimrc
-link ./.vimrc $HOME/.vimrc
+mkdir -p $HOME/.config/nvim
+rm -f $HOME/.config/nvim/init.vim
+link ./.vimrc $HOME/.config/nvim/init.vim
 
 # plugin
-mkdir -p $HOME/.vim
-mkdir -p $HOME/.vim/bundle
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+mkdir -p $HOME/.config/nvim/bundle
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.config/nvim/bundle/Vundle.vim
 
 # install YouCompleteMe
-git clone https://github.com/Valloric/YouCompleteMe $HOME/.vim/bundle/YouCompleteMe
-cd $HOME/.vim/bundle/YouCompleteMe
-git submodule update --init --recursive
-python3 install.py --clangd-completer
+#git clone https://github.com/Valloric/YouCompleteMe $HOME/.vim/bundle/YouCompleteMe
+#cd $HOME/.vim/bundle/YouCompleteMe
+#git submodule update --init --recursive
+#python3 install.py --clangd-completer
 
-vim -E -s -u "$HOME/.vimrc" +PluginInstall +qall
+nvim -E -s -u "$HOME/.config/nvim/init.vim" +PluginInstall +qall
 cd ~

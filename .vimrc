@@ -38,11 +38,11 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'tmhedberg/SimpylFold'
-Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe'
 Plugin 'prettier/vim-prettier'
 Plugin 'mtdl9/vim-log-highlighting'
 Plugin 'mbbill/undotree'
-Plugin 'rdnetto/YCM-Generator'
+" Plugin 'rdnetto/YCM-Generator'
 Plugin 'SirVer/ultisnips'    " snippet engine
 Plugin 'honza/vim-snippets'  " snippet example
 Plugin 'ervandew/supertab'
@@ -53,14 +53,14 @@ Plugin 'plasticboy/vim-markdown'
 Plugin 'suan/vim-instant-markdown'
 " latex
 "Plugin 'vim-latex/vim-latex'
-Plugin 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
-Plugin 'rhysd/vim-clang-format'
+" Plugin 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+" Plugin 'rhysd/vim-clang-format'
 " python style format
 Plugin 'psf/black'
 " paste images into markdown files
 Plugin 'ferrine/md-img-paste.vim'
 " zeek
-Plugin 'zeek/vim-zeek'
+" Plugin 'zeek/vim-zeek'
 " go
 Plugin 'fatih/vim-go'
 " yaml
