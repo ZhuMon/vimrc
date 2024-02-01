@@ -1,4 +1,4 @@
-syntax on
+"syntax on
 
 " no compatible vi
 set nocompatible
@@ -24,6 +24,7 @@ set cursorline
 
 " 按下 F4 可以自由開關行號
 map <F4> : set nu!<BAR>set nonu?<CR> 
+
 
 """ highlight text
 hi LineNr cterm=bold ctermfg=DarkGrey ctermbg=NONE 
@@ -417,6 +418,8 @@ let g:ale_linters = {
             \ 'bash': ['shellcheck'],
             \ 'go': ['golangci-lint', 'gofmt'],
             \ 'javascript': ['eslint'],
+            \ 'sql': ['sqlfluff'],
+            \ 'chef': ['cookstyle'],
             \}
 " python config
 "   ignore line too long
@@ -440,9 +443,18 @@ let g:ale_python_mypy_options = '--namespace-packages=True'
 let g:ale_linters.rust = ['cargo', 'rls']
 let g:ale_rust_rls_toolchain = 'stable'
 
+" set sql config
+let g:ale_sql_sqlfluff_options = '--dialect=athena'
+
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
+"----------------- chef Config -------------------------------------
+autocmd BufNewFile,BufRead */recipes/*.rb set ft=chef syntax=ruby
+autocmd BufNewFile,BufRead */attributes/*.rb set ft=chef syntax=ruby
+autocmd BufNewFile,BufRead metadata.rb set ft=chef syntax=ruby
+
+autocmd BufRead,BufNewFile,FileType chef call SetYamlOptions()
 
 "----------------- url encode/decode ------------------------------
 " encode the selected text by the python script
